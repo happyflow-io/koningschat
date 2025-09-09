@@ -1,25 +1,52 @@
 # Koningschat
 
-RAG-based chatbot voor Koningsspelen website content.
+RAG-based chatbot widget voor Koningsspelen website content.
 
 ## Tech Stack
 
-**Frontend:**
+**Frontend (Widget):**
 - Vue 3 + TypeScript
-- Tailwind CSS
+- TailwindCSS
 - Vite
 
-**Backend:**
-- Express.js + TypeScript
-- OpenAI API
-- Pinecone/ChromaDB (Vector DB)
+**Backend (API):**
+- Hono + TypeScript
+- Bun (runtime)
+- OpenAI API (GPT-4 + Embeddings)
+
+**Database:**
+- PostgreSQL + pgvector (RAG embeddings)
+
+**Deployment:**
+- AWS Lambda (Hono API)
+- AWS RDS (PostgreSQL)
+- Docker
 
 ## Project Structure
 
 ```
 koningschat/
-├── frontend/          # Vue3 application
-├── backend/           # Express.js API
+├── frontend/          # Vue 3 widget
+│   ├── src/
+│   │   ├── components/
+│   │   │   └── ChatWidget.vue
+│   │   ├── composables/
+│   │   │   └── useChat.ts
+│   │   └── main.ts
+│   ├── package.json
+│   └── vite.config.ts
+├── backend/           # Hono API
+│   ├── src/
+│   │   ├── routes/
+│   │   │   └── chat.ts
+│   │   ├── services/
+│   │   │   ├── openai.ts
+│   │   │   └── embeddings.ts
+│   │   ├── db/
+│   │   │   └── schema.sql
+│   │   └── index.ts
+│   ├── package.json
+│   └── Dockerfile
 ├── docs/             # Documentation
 └── README.md
 ```
@@ -29,18 +56,19 @@ koningschat/
 1. **Backend setup:**
    ```bash
    cd backend
-   npm install
-   npm run dev
+   bun install
+   bun run dev
    ```
 
 2. **Frontend setup:**
    ```bash
    cd frontend
-   npm install
-   npm run dev
+   bun install
+   bun run dev
    ```
 
 ## Deployment
 
 - Frontend: Vercel/Netlify
-- Backend: Railway/Heroku
+- Backend: AWS Lambda (via Serverless Framework)
+- Database: AWS RDS PostgreSQL + pgvector
