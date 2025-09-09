@@ -1,0 +1,20 @@
+{
+  "name": "koningschat-backend",
+  "version": "1.0.0",
+  "description": "Hono + TypeScript backend for Koningschat RAG chatbot",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target node",
+    "start": "bun run dist/index.js"
+  },
+  "dependencies": {
+    "hono": "^3.12.0",
+    "@hono/node-server": "^1.8.0",
+    "openai": "^4.20.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.2"
+  }
+}
