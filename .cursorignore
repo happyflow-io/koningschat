@@ -1,0 +1,21 @@
+# Environment variables - never send to AI
+.env
+.env.*
+backend/.env
+backend/.env.*
+
+# Dependencies
+node_modules/
+bun.lockb
+package-lock.json
+
+# Build outputs
+dist/
+build/
+
+# Logs
+*.log
+logs/
+
+# Chat history
+.chats/

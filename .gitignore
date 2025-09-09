@@ -29,3 +29,6 @@ logs/
 # Runtime
 .cache/
 .temp/
+
+# Chat history
+.chats/
