@@ -25,27 +25,27 @@ RAG-based chatbot widget for the Koningsspelen website. A proof of concept to te
 
 ### Frontend Widget
 - Vue 3 + TypeScript component
-- TailwindCSS voor styling
-- Minimale footprint (klein JavaScript bundle)
+- TailwindCSS for styling
+- Minimal footprint (small JavaScript bundle)
 - Responsive design
-- Eenvoudig te integreren in bestaande website
+- Easy integration into existing website
 
 ### Backend API
-- Hono framework (snelle, lichtgewicht API)
+- Hono framework (fast, lightweight API)
 - Bun runtime
-- OpenAI GPT-4 voor responses
-- OpenAI Embeddings voor content vectorization
-- Rate limiting en security
+- OpenAI GPT-4 for responses
+- OpenAI Embeddings for content vectorization
+- Rate limiting and security
 
 ### Database & RAG
-- PostgreSQL met pgvector extension
-- Content van Koningsspelen website geïndexeerd
-- Semantic search voor relevante content
-- Vector embeddings voor context matching
+- PostgreSQL with pgvector extension
+- Koningsspelen website content indexed
+- Semantic search for relevant content
+- Vector embeddings for context matching
 
 ### Deployment
-- AWS Lambda voor API (serverless scaling)
-- AWS RDS voor PostgreSQL database
+- AWS Lambda for API (serverless scaling)
+- AWS RDS for PostgreSQL database
 - Docker containers
 - CI/CD pipeline
 
