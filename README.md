@@ -1,6 +1,6 @@
 # Koningschat
 
-RAG-based chatbot widget voor Koningsspelen website content.
+RAG-based chatbot widget for Koningsspelen website content.
 
 ## Tech Stack
 
