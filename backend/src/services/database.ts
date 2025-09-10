@@ -41,6 +41,11 @@ export class DatabaseService {
     return parseInt(result[0].count);
   }
 
+  async getEmbeddingCount(): Promise<number> {
+    const result = await sql`SELECT COUNT(*) as count FROM embeddings`;
+    return parseInt(result[0].count);
+  }
+
   async getAllContent(): Promise<ContentRow[]> {
     return await sql<ContentRow[]>`
       SELECT * FROM content 
@@ -80,10 +85,6 @@ export class DatabaseService {
     await sql`
       INSERT INTO embeddings (content_id, chunk_text, chunk_index, embedding)
       VALUES (${contentId}, ${chunkText}, ${chunkIndex}, ${JSON.stringify(embedding)}::vector)
-      ON CONFLICT (content_id, chunk_index)
-      DO UPDATE SET 
-        chunk_text = EXCLUDED.chunk_text,
-        embedding = EXCLUDED.embedding
     `;
   }
 

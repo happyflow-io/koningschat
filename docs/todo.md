@@ -18,6 +18,9 @@
 ✅ Backend API fully functional (/health, /api/chat)  
 ✅ Frontend widget complete with Dutch UI  
 ✅ Development scripts for easy startup  
+✅ Content scraping completed (21 pages from koningsspelen.nl)  
+✅ Embeddings generation service implemented  
+✅ 48 embeddings generated and stored in database  
 
 ## Phase 1: Content & Database Setup
 
@@ -28,22 +31,22 @@
 - ✅ Test database connection
 
 ### 2. Content Ingestion
-- [ ] Run scraper to collect Koningsspelen content
-- [ ] Verify content quality and completeness
-- [ ] Clean and process scraped content if needed
+- ✅ Run scraper to collect Koningsspelen content
+- ✅ Verify content quality and completeness
+- ✅ Clean and process scraped content if needed
 
 ### 3. Embeddings Generation
-- [ ] Create embeddings service (OpenAI integration)
-- [ ] Implement text chunking for optimal embeddings
-- [ ] Generate embeddings for all content
-- [ ] Store embeddings in PostgreSQL with pgvector
+- ✅ Create embeddings service (OpenAI integration)
+- ✅ Implement text chunking for optimal embeddings
+- ✅ Generate embeddings for all content
+- ✅ Store embeddings in PostgreSQL with pgvector
 
 ## Phase 2: API Implementation
 
 ### 4. Core API Services
-- [ ] Create database connection service
-- [ ] Implement vector similarity search
-- [ ] Create OpenAI service for chat completions
+- ✅ Create database connection service
+- ✅ Implement vector similarity search
+- ✅ Create OpenAI service for chat completions
 - [ ] Build RAG pipeline (retrieve + generate)
 
 ### 5. Hono API Enhancement
@@ -121,10 +124,10 @@
 
 ## Next Steps (Immediate Priority)
 
-1. **Content Scraping** - Run `bun run scrape` to get Koningsspelen data
-2. **Embeddings Service** - Create service to generate and store embeddings  
-3. **RAG Implementation** - Add vector search to chat responses
-4. **Widget Integration Script** - For external website embedding
+1. **RAG Implementation** - Add vector search to `/api/chat` endpoint
+2. **Test RAG responses** - Verify improved accuracy with specific content
+3. **Widget Integration Script** - For external website embedding
+4. **Performance optimization** - Optimize vector search and response times
 
 ## Testing
 
@@ -136,12 +139,13 @@ bun run dev
 # Test health
 bun run health
 
+# Generate embeddings (if needed)
+cd backend && bun run embeddings
+
 # Test chat (manual in browser at localhost:5173)
 ```
 
-## Notes
-
-- **Frontend widget is complete** and ready for testing
-- **Backend API works** with real OpenAI responses in Dutch
-- **Database is setup** and ready for content ingestion
-- **Focus now on content scraping and RAG implementation**
+**Data status:**
+- ✅ 21 pages scraped from koningsspelen.nl
+- ✅ 48 embeddings generated and stored
+- ✅ Ready for RAG implementation

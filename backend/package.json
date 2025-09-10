@@ -7,7 +7,8 @@
     "dev": "bun run --watch src/index.ts",
     "build": "bun build src/index.ts --outdir dist --target node",
     "start": "bun run dist/index.js",
-    "scrape": "bun run src/scripts/scraper.ts"
+    "scrape": "bun run src/scripts/scraper.ts",
+    "embeddings": "bun run src/scripts/generate-embeddings.ts"
   },
   "dependencies": {
     "hono": "^3.12.0",
