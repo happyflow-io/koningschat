@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { openaiService } from './services/openai'
 import { db } from './services/database'
+import { embeddingsService } from './services/embeddings'
 import 'dotenv/config'
 
 const app = new Hono()
@@ -29,7 +30,7 @@ app.get('/health', async (c) => {
   })
 })
 
-// Chat endpoint with OpenAI
+// Chat endpoint with RAG
 app.post('/api/chat', async (c) => {
   try {
     const { message } = await c.req.json()
@@ -40,13 +41,24 @@ app.post('/api/chat', async (c) => {
       }, 400)
     }
 
-    // For now, generate response without RAG context
-    // TODO: Add vector search for relevant content
-    const response = await openaiService.generateChatResponse(message)
+    // RAG: Search for relevant content
+    const similarContent = await embeddingsService.searchSimilarContent(message, 3)
+    
+    // Build context from similar content
+    const context = similarContent
+      .map(item => `${item.title}: ${item.chunk_text}`)
+      .join('\n\n')
+    
+    // Generate response with context
+    const response = await openaiService.generateChatResponse(message, context)
     
     return c.json({ 
       response,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      sources: similarContent.length > 0 ? similarContent.map(item => ({
+        title: item.title,
+        url: item.url
+      })) : undefined
     })
     
   } catch (error) {

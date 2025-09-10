@@ -26,13 +26,19 @@ export class OpenAIService {
       const systemPrompt = `Je bent een behulpzame assistent voor de Koningsspelen website. 
 Je beantwoordt alleen vragen over de Koningsspelen in het Nederlands.
 
-Als je relevante informatie hebt gekregen, gebruik die om een accuraat antwoord te geven.
+Als je relevante informatie hebt gekregen in de context, gebruik die om een accuraat antwoord te geven.
+Geef altijd de voorkeur aan informatie uit de context boven je algemene kennis.
 Als de vraag niet over de Koningsspelen gaat, zeg dan vriendelijk dat je alleen vragen over de Koningsspelen kunt beantwoorden.
 
 Houd je antwoorden kort en informatief.`;
 
       const userPrompt = context 
-        ? `Context informatie: ${context}\n\nVraag: ${question}`
+        ? `Context informatie van de Koningsspelen website:
+${context}
+
+Vraag: ${question}
+
+Beantwoord de vraag op basis van de context informatie hierboven.`
         : `Vraag: ${question}`;
 
       const response = await openai.chat.completions.create({
@@ -41,7 +47,7 @@ Houd je antwoorden kort en informatief.`;
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt }
         ],
-        temperature: 0.7,
+        temperature: 0.3,
         max_tokens: 500,
       });
 

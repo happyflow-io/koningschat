@@ -47,7 +47,7 @@
 - ✅ Create database connection service
 - ✅ Implement vector similarity search
 - ✅ Create OpenAI service for chat completions
-- [ ] Build RAG pipeline (retrieve + generate)
+- ✅ Build RAG pipeline (retrieve + generate)
 
 ### 5. Hono API Enhancement
 - ✅ Basic Hono server exists with /api/chat endpoint
@@ -55,13 +55,32 @@
 - ✅ Add CORS configuration for external websites
 - ✅ Implement Dutch system prompts for OpenAI
 - ✅ Add error handling with Dutch messages
-- [ ] Add RAG functionality (vector search + context)
+- ✅ Add RAG functionality (vector search + context)
 
-### 6. API Testing
-- [ ] Test API locally with sample questions
-- [ ] Verify Dutch responses
-- [ ] Test vector search accuracy
+### 6. RAG Quality Improvements
+- [ ] **Chunking Optimization**
+  - [ ] Reduce chunk size from 1000 to 500 characters
+  - [ ] Add overlap between chunks (50 chars)
+  - [ ] Test chunk quality with sample queries
+- [ ] **Search Quality**
+  - [ ] Implement query expansion with synonyms
+  - [ ] Add reranking of search results (top 5 → best 3)
+  - [ ] Test search accuracy with demo questions
+- [ ] **Response Quality**
+  - [ ] Improve system prompt specificity
+  - [ ] Lower temperature to 0.1 for consistency
+  - [ ] Add explicit context validation
+- [ ] **Quality Testing Framework**
+  - [ ] Create test queries with expected answers
+  - [ ] Automated quality scoring system
+  - [ ] Performance benchmarking
+
+### 7. API Testing
+- ✅ Test API locally with sample questions
+- ✅ Verify Dutch responses
+- ✅ Test vector search accuracy
 - [ ] Performance testing
+- [ ] Quality benchmarking with demo questions
 
 ## Phase 3: Frontend Widget (Mostly Complete)
 
@@ -124,10 +143,29 @@
 
 ## Next Steps (Immediate Priority)
 
-1. **RAG Implementation** - Add vector search to `/api/chat` endpoint
-2. **Test RAG responses** - Verify improved accuracy with specific content
+1. **RAG Quality Improvements** - Optimize chunking, search, and response quality
+2. **Demo Preparation** - Frontend polish and test scenarios
 3. **Widget Integration Script** - For external website embedding
 4. **Performance optimization** - Optimize vector search and response times
+
+## Demo Readiness Checklist
+
+### Frontend Polish (30 min)
+- [ ] Show sources in chat interface
+- [ ] Improve styling for demo presentation
+- [ ] Better loading states
+
+### Demo Setup (15 min)
+- [ ] Simple HTML page for external widget demo
+- [ ] Demo question list preparation
+- [ ] Test scenarios documentation
+
+### Quality Assurance
+- [ ] Test with demo questions:
+  - "Wanneer zijn de Koningsspelen?" → "17 april 2026"
+  - "Wat krijgen scholen bij inschrijving?" → "Sport- en Feestpakket"
+  - "Wat is het thema?" → "TWIST"
+  - "Hoe werkt het ontbijt?" → "Koningsontbijt info"
 
 ## Testing
 
