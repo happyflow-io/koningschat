@@ -8,18 +8,19 @@ RAG-based chatbot widget for Koningsspelen website content.
 # Install all dependencies
 bun run install:all
 
-# Start development servers (backend + frontend)
+# Start development servers (robust startup with port cleanup)
 bun run dev
 ```
 
-Open http://localhost:5173 to see the chat widget demo.
+Open http://localhost:3000 to see the chat widget demo.
 
 ## Development Scripts
 
 ```bash
-bun run dev              # Start both backend and frontend
+bun run dev              # Start both servers (robust with port cleanup)
+bun run dev:simple       # Start both servers (simple concurrently)
 bun run dev:backend      # Start only backend (port 3001)
-bun run dev:frontend     # Start only frontend (port 5173)
+bun run dev:frontend     # Start only frontend (port 3000)
 bun run health           # Check API health status
 bun run scrape           # Run website content scraper
 bun run build            # Build for production
@@ -127,6 +128,6 @@ bun run dev          # Start both servers
 ```
 
 **Testing:**
-- Open http://localhost:5173 for the demo page
+- Open http://localhost:3000 for the demo page
 - Test chat functionality with Dutch questions
 - Check API health: `bun run health`

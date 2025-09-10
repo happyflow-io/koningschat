@@ -180,7 +180,7 @@ bun run health
 # Generate embeddings (if needed)
 cd backend && bun run embeddings
 
-# Test chat (manual in browser at localhost:5173)
+# Test chat (manual in browser at localhost:3000)
 ```
 
 **Data status:**

@@ -9,7 +9,7 @@ const app = new Hono()
 
 // Middleware
 app.use('*', cors({
-  origin: ['http://localhost:3000', 'http://localhost:5173'], // Add Vite dev server
+  origin: ['http://localhost:3000'], // Frontend Vite dev server
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowHeaders: ['Content-Type', 'Authorization'],
 }))

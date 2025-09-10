@@ -4,6 +4,7 @@ interface Message {
   id: number
   sender: string
   text: string
+  sources?: Array<{title: string, url: string}>
 }
 
 export function useChat() {
@@ -45,7 +46,8 @@ export function useChat() {
       messages.value.push({
         id: Date.now() + 1,
         sender: 'Bot',
-        text: data.response
+        text: data.response,
+        sources: data.sources
       })
     } catch (error) {
       console.error('Chat error:', error)
