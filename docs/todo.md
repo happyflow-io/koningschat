@@ -13,14 +13,19 @@
 ✅ useChat composable created  
 ✅ Demo page setup for development  
 ✅ Environment variables configured  
+✅ PostgreSQL database setup with pgvector  
+✅ OpenAI integration with Dutch responses working  
+✅ Backend API fully functional (/health, /api/chat)  
+✅ Frontend widget complete with Dutch UI  
+✅ Development scripts for easy startup  
 
 ## Phase 1: Content & Database Setup
 
 ### 1. Database Setup
-- [ ] Create local PostgreSQL database
-- [ ] Install pgvector extension
-- [ ] Run schema.sql to create tables
-- [ ] Test database connection
+- ✅ Create local PostgreSQL database
+- ✅ Install pgvector extension
+- ✅ Run schema.sql to create tables
+- ✅ Test database connection
 
 ### 2. Content Ingestion
 - [ ] Run scraper to collect Koningsspelen content
@@ -43,10 +48,11 @@
 
 ### 5. Hono API Enhancement
 - ✅ Basic Hono server exists with /api/chat endpoint
-- [ ] Replace placeholder response with RAG functionality
-- [ ] Add CORS configuration for external websites
-- [ ] Implement Dutch system prompts for OpenAI
-- [ ] Add error handling with Dutch messages
+- ✅ Replace placeholder response with OpenAI integration
+- ✅ Add CORS configuration for external websites
+- ✅ Implement Dutch system prompts for OpenAI
+- ✅ Add error handling with Dutch messages
+- [ ] Add RAG functionality (vector search + context)
 
 ### 6. API Testing
 - [ ] Test API locally with sample questions
@@ -88,16 +94,23 @@
 ### 11. Documentation
 - [ ] API documentation
 - [ ] Widget integration guide for external websites
-- [ ] Deployment instructions
 - [ ] Usage examples
+
+### 12. Deployment
+- [ ] Frontend deployment (AWS)
+- [ ] Backend deployment (AWS Lambda)
+- [ ] Database deployment (AWS RDS PostgreSQL + pgvector)
+- [ ] Environment configuration for production
+- [ ] CI/CD pipeline setup
 
 ## Phase 5: Deployment (Future)
 
-### 12. AWS Setup
-- [ ] Configure AWS Lambda for Hono API
-- [ ] Setup AWS RDS PostgreSQL
-- [ ] Configure CDN for widget distribution
-- [ ] Environment configuration
+### 12. Deployment
+- [ ] Frontend deployment (AWS)
+- [ ] Backend deployment (AWS Lambda)
+- [ ] Database deployment (AWS RDS PostgreSQL + pgvector)
+- [ ] Environment configuration for production
+- [ ] CI/CD pipeline setup
 
 ### 13. Production Ready
 - [ ] Docker containerization
@@ -108,14 +121,27 @@
 
 ## Next Steps (Immediate Priority)
 
-1. **Database Setup** - Get PostgreSQL running locally with pgvector
-2. **Content Scraping** - Run scraper to get Koningsspelen data
-3. **Embeddings Service** - Create service to generate and store embeddings
-4. **RAG Implementation** - Replace placeholder API response with real AI
+1. **Content Scraping** - Run `bun run scrape` to get Koningsspelen data
+2. **Embeddings Service** - Create service to generate and store embeddings  
+3. **RAG Implementation** - Add vector search to chat responses
+4. **Widget Integration Script** - For external website embedding
+
+## Testing
+
+**Current capability:**
+```bash
+# Start full stack
+bun run dev
+
+# Test health
+bun run health
+
+# Test chat (manual in browser at localhost:5173)
+```
 
 ## Notes
 
-- Frontend widget is largely complete and ready for testing
-- Focus now shifts to backend RAG implementation
-- Database and content ingestion are critical next steps
-- Test with real Koningsspelen questions early
+- **Frontend widget is complete** and ready for testing
+- **Backend API works** with real OpenAI responses in Dutch
+- **Database is setup** and ready for content ingestion
+- **Focus now on content scraping and RAG implementation**

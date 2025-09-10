@@ -2,6 +2,61 @@
 
 RAG-based chatbot widget for Koningsspelen website content.
 
+## Quick Start
+
+```bash
+# Install all dependencies
+bun run install:all
+
+# Start development servers (backend + frontend)
+bun run dev
+```
+
+Open http://localhost:5173 to see the chat widget demo.
+
+## Development Scripts
+
+```bash
+bun run dev              # Start both backend and frontend
+bun run dev:backend      # Start only backend (port 3001)
+bun run dev:frontend     # Start only frontend (port 5173)
+bun run health           # Check API health status
+bun run scrape           # Run website content scraper
+bun run build            # Build for production
+```
+
+## Prerequisites
+
+- **Bun** - JavaScript runtime and package manager
+- **PostgreSQL** - Database with pgvector extension
+- **OpenAI API Key** - For AI responses
+
+### Database Setup
+
+```bash
+# Start PostgreSQL
+brew services start postgresql@14
+
+# Install pgvector extension
+brew install pgvector
+
+# Create database
+createdb koningschat
+
+# Run schema (creates tables and pgvector extension)
+psql -d koningschat -f backend/src/db/schema.sql
+```
+
+### Environment Configuration
+
+Create `backend/.env`:
+```env
+DATABASE_URL=postgresql://yourusername@localhost:5432/koningschat
+OPENAI_API_KEY=your-openai-api-key-here
+PORT=3001
+NODE_ENV=development
+```
+
 ## Tech Stack
 
 **Frontend (Widget):**
@@ -17,10 +72,19 @@ RAG-based chatbot widget for Koningsspelen website content.
 **Database:**
 - PostgreSQL + pgvector (RAG embeddings)
 
-**Deployment:**
-- AWS Lambda (Hono API)
-- AWS RDS (PostgreSQL)
-- Docker
+## Current Status
+
+✅ **Working Features:**
+- Vue 3 ChatWidget component with Dutch UI
+- Hono API with OpenAI GPT-4 integration
+- PostgreSQL database with pgvector ready
+- Real-time chat with Dutch AI responses
+- Health monitoring and error handling
+
+🔄 **Next Steps:**
+- Content scraping from Koningsspelen website
+- Vector embeddings generation
+- RAG (Retrieval Augmented Generation) implementation
 
 ## Project Structure
 
@@ -37,38 +101,32 @@ koningschat/
 │   └── vite.config.ts
 ├── backend/           # Hono API
 │   ├── src/
-│   │   ├── routes/
-│   │   │   └── chat.ts
 │   │   ├── services/
 │   │   │   ├── openai.ts
-│   │   │   └── embeddings.ts
+│   │   │   └── database.ts
+│   │   ├── scripts/
+│   │   │   └── scraper.ts
 │   │   ├── db/
 │   │   │   └── schema.sql
 │   │   └── index.ts
 │   ├── package.json
-│   └── Dockerfile
+│   └── .env
 ├── docs/             # Documentation
+├── package.json      # Root scripts
 └── README.md
 ```
 
 ## Development
 
-1. **Backend setup:**
-   ```bash
-   cd backend
-   bun install
-   bun run dev
-   ```
+The project uses a monorepo structure with root-level scripts for easy development.
 
-2. **Frontend setup:**
-   ```bash
-   cd frontend
-   bun install
-   bun run dev
-   ```
+**Quick start:**
+```bash
+bun run install:all  # Install all dependencies
+bun run dev          # Start both servers
+```
 
-## Deployment
-
-- Frontend: Vercel/Netlify
-- Backend: AWS Lambda (via Serverless Framework)
-- Database: AWS RDS PostgreSQL + pgvector
+**Testing:**
+- Open http://localhost:5173 for the demo page
+- Test chat functionality with Dutch questions
+- Check API health: `bun run health`
