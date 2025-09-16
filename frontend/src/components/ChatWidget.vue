@@ -1,13 +1,13 @@
 <template>
-  <div class="bg-white rounded-lg shadow-lg overflow-hidden h-full flex flex-col">
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden h-full relative">
     <!-- Header -->
-    <div class="bg-orange-500 text-white p-4 flex-shrink-0">
+    <div class="bg-orange-500 text-white p-4">
       <h3 class="font-semibold text-lg">Koningsspelen Assistent</h3>
       <p class="text-orange-100 text-sm">Stel je vraag over de Koningsspelen</p>
     </div>
 
-    <!-- Messages - Nu full height -->
-    <div class="flex-1 overflow-y-auto p-4 space-y-4" ref="messagesContainer">
+    <!-- Messages - With bottom padding for input -->
+    <div class="absolute top-20 bottom-24 left-0 right-0 overflow-y-auto p-4 space-y-4" ref="messagesContainer">
       <div v-if="messages.length === 0" class="text-center text-gray-500 mt-8">
         <p class="mb-4">Welkom! Probeer een van deze vragen:</p>
         <div class="space-y-2 text-sm">
@@ -50,8 +50,8 @@
       </div>
     </div>
 
-    <!-- Input area - Fixed at bottom -->
-    <div class="border-t bg-white p-4 flex-shrink-0">
+    <!-- Input area - Absolutely positioned at bottom -->
+    <div class="absolute bottom-0 left-0 right-0 border-t bg-white p-4">
       <div class="flex gap-2">
         <input 
           ref="inputField"
