@@ -1,74 +1,56 @@
-# Koningsspelen Chatbot - Website Integratie Demo
+# Koningsspelen Chatbot - Fullscreen Overlay Demo
 
-## 🎯 Voor de Klant Demo
+## 🎯 Updated Requirements (v2.0)
 
-### Toon de Integratie Mogelijkheden
+### New UX Approach: Fullscreen Overlay
 
-1. **Open de demo pagina:**
-   ```bash
-   open demo/integration-example.html
-   ```
+**Previous:** Small iframe widget in corner  
+**New:** Fullscreen chat overlay with toggle functionality
 
-2. **Laat zien hoe simpel integratie is:**
-   - Slechts 1 iframe of script tag
-   - Werkt op elke website
-   - Automatisch responsive
-   - Geen technische kennis vereist
+### User Experience Flow
 
-### 🚀 Integratie Opties
+1. **First Visit:** User sees fullscreen chat overlay
+2. **Toggle to Website:** Button rechtsonder → normale website
+3. **Toggle to Chat:** Button rechtsonder → terug naar chat overlay
+4. **State Preservation:** Website blijft geladen op achtergrond
 
-#### Optie 1: Iframe (Simpelst)
+## 🚀 Technical Implementation
+
+### Components Needed
+
+1. **FullscreenChatOverlay.vue** - Main overlay component
+2. **ToggleButton.vue** - Switch between chat/website
+3. **OverlayManager.js** - State management
+4. **Integration script** - For external websites
+
+### Integration Method
+
 ```html
-<iframe 
-    src="https://koningsspelen-chat.nl" 
-    width="400" 
-    height="600" 
-    frameborder="0">
-</iframe>
+<!-- Single script tag integration -->
+<script src="https://koningsspelen-chat.nl/overlay-widget.js"></script>
 ```
 
-#### Optie 2: JavaScript Widget (Geavanceerd)
-```html
-<script src="https://koningsspelen-chat.nl/widget.js"></script>
-```
+**What it does:**
+- Detects first visit → shows chat overlay
+- Adds toggle button to website
+- Manages overlay state
+- Preserves website navigation
 
-#### Optie 3: WordPress Plugin
-- Eenvoudige installatie via WordPress admin
-- Geen code vereist
-- Automatische updates
+## 💡 Advantages of New Approach
 
-### 💡 Klant Voordelen
+**User Experience:**
+- ✅ Chat is primary focus (first impression)
+- ✅ Smooth transitions between chat/website
+- ✅ No iframe limitations
+- ✅ Better mobile experience
 
-**Technisch:**
-- ✅ Plug & Play installatie
-- ✅ Werkt op alle websites (WordPress, Drupal, custom)
-- ✅ Automatische updates
-- ✅ Mobile responsive
-- ✅ Geen server vereisten
-
-**Inhoudelijk:**
-- ✅ Altijd actuele Koningsspelen informatie
-- ✅ 24/7 beschikbaar
-- ✅ Vermindert support vragen
-- ✅ Verbetert gebruikerservaring
+**Technical:**
+- ✅ Full control over styling
+- ✅ Better performance (no iframe)
+- ✅ Easier responsive design
+- ✅ Direct API communication
 
 **Business:**
-- ✅ Meer engagement op website
-- ✅ Minder telefoontjes naar kantoor
-- ✅ Professionele uitstraling
-- ✅ Schaalt automatisch mee
-
-### 🎬 Demo Script
-
-1. **"Kijk, zo ziet het eruit op jullie website"** → Toon integration-example.html
-2. **"En zo simpel voeg je het toe"** → Toon 1 regel code
-3. **"Test maar eens"** → Laat klant vragen stellen
-4. **"Werkt op elke pagina"** → Scroll door demo site
-
-### 📋 Technische Details (voor IT)
-
-- **Hosting:** Wij hosten alles
-- **Updates:** Automatisch
-- **Beveiliging:** HTTPS, CORS geconfigureerd
-- **Performance:** CDN, caching
-- **Analytics:** Optioneel dashboard
+- ✅ Higher engagement (chat first)
+- ✅ Professional appearance
+- ✅ Better conversion rates

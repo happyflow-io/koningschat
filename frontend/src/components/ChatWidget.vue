@@ -1,22 +1,21 @@
 <template>
-  <div class="bg-white rounded-lg shadow-lg overflow-hidden max-w-md w-full">
-    <!-- Header with Koningsspelen branding -->
-    <div class="bg-orange-500 text-white p-4">
-      <h3 class="font-semibold">Koningsspelen Assistent</h3>
-      <p class="text-sm opacity-90">Stel je vraag over de Koningsspelen</p>
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden h-full flex flex-col">
+    <!-- Header -->
+    <div class="bg-orange-500 text-white p-4 flex-shrink-0">
+      <h3 class="font-semibold text-lg">Koningsspelen Assistent</h3>
+      <p class="text-orange-100 text-sm">Stel je vraag over de Koningsspelen</p>
     </div>
-    
-    <!-- Messages area -->
-    <div class="h-80 p-4 overflow-y-auto bg-gray-50" ref="messagesContainer">
-      <!-- Welcome message with suggestions -->
-      <div v-if="messages.length === 0" class="text-center text-gray-600 mt-4">
+
+    <!-- Messages - Nu full height -->
+    <div class="flex-1 overflow-y-auto p-4 space-y-4" ref="messagesContainer">
+      <div v-if="messages.length === 0" class="text-center text-gray-500 mt-8">
         <p class="mb-4">Welkom! Probeer een van deze vragen:</p>
         <div class="space-y-2 text-sm">
           <button 
             v-for="suggestion in suggestions" 
             :key="suggestion"
-            @click="sendSuggestion(suggestion)"
-            class="block w-full text-left p-2 bg-white hover:bg-gray-100 rounded border text-gray-700 transition-colors"
+            @click="sendMessage(suggestion)"
+            class="block w-full text-left p-2 bg-gray-50 hover:bg-gray-100 rounded text-gray-700 transition-colors"
           >
             {{ suggestion }}
           </button>
@@ -25,21 +24,24 @@
 
       <!-- Chat messages -->
       <div v-for="message in messages" :key="message.id" class="mb-4">
-        <div :class="message.sender === 'Jij' ? 'flex justify-end' : 'flex justify-start'">
-          <div :class="message.sender === 'Jij' 
-            ? 'bg-blue-500 text-white rounded-lg px-4 py-2 max-w-xs' 
-            : 'bg-white border rounded-lg px-4 py-2 max-w-xs'">
-            <div class="text-xs font-semibold mb-1">{{ message.sender }}</div>
-            <div v-if="message.sender === 'Bot'" v-html="formatResponseWithLink(message.text, message.sources)"></div>
-            <div v-else>{{ message.text }}</div>
+        <!-- User Message - Rechts, blauwe achtergrond -->
+        <div v-if="message.sender === 'Jij'" class="flex justify-end">
+          <div class="bg-blue-500 text-white p-3 rounded-lg max-w-xs">
+            {{ message.text }}
+          </div>
+        </div>
+
+        <!-- Bot Message - Links, grijze achtergrond -->
+        <div v-if="message.sender === 'Bot'" class="flex justify-start">
+          <div class="bg-gray-100 text-gray-800 p-3 rounded-lg max-w-xs">
+            <p v-html="formatResponseWithLink(message.text, message.sources)"></p>
           </div>
         </div>
       </div>
-      
-      <!-- Loading state -->
-      <div v-if="isLoading" class="flex justify-start">
-        <div class="bg-white border rounded-lg px-4 py-2 max-w-xs">
-          <div class="text-xs font-semibold mb-1">Bot</div>
+
+      <!-- Loading State - Links -->
+      <div v-if="isLoading" class="flex justify-start mb-4">
+        <div class="bg-gray-100 p-3 rounded-lg">
           <div class="flex items-center space-x-2">
             <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-orange-500"></div>
             <span class="text-gray-600 text-sm">Aan het denken...</span>
@@ -47,19 +49,20 @@
         </div>
       </div>
     </div>
-    
-    <!-- Input area -->
-    <div class="border-t bg-white p-4">
+
+    <!-- Input area - Fixed at bottom -->
+    <div class="border-t bg-white p-4 flex-shrink-0">
       <div class="flex gap-2">
         <input 
+          ref="inputField"
           v-model="currentMessage" 
-          @keyup.enter="sendMessage"
+          @keyup.enter="sendMessage()"
           :disabled="isLoading"
           placeholder="Vraag iets over de Koningsspelen..."
           class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:opacity-50"
         />
         <button 
-          @click="sendMessage"
+          @click="sendMessage()"
           :disabled="isLoading || !currentMessage.trim()"
           class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
@@ -74,11 +77,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, watch, onMounted } from 'vue'
 import { useChat } from '../composables/useChat'
 
 const { messages, currentMessage, isLoading, sendMessage: sendChatMessage } = useChat()
 const messagesContainer = ref<HTMLElement>()
+const inputField = ref<HTMLInputElement>()
 
 const suggestions = [
   'Wanneer zijn de Koningsspelen?',
@@ -95,19 +99,42 @@ const formatResponseWithLink = (text: string, sources?: Array<{title: string, ur
   return `${text} <a href="${mainSource.url}" target="_blank" class="text-orange-600 hover:text-orange-800 underline">→ Meer info</a>`
 }
 
-const sendSuggestion = async (suggestion: string) => {
-  currentMessage.value = suggestion
-  await sendMessage()
-}
-
-const sendMessage = async () => {
-  await sendChatMessage()
-  
-  // Scroll to bottom after message
+const scrollToBottom = () => {
   nextTick(() => {
     if (messagesContainer.value) {
       messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight
     }
   })
 }
+
+const sendMessage = async (text?: string) => {
+  if (text) {
+    currentMessage.value = text
+  }
+  
+  await sendChatMessage()
+  scrollToBottom()
+  
+  // Focus input field after sending
+  nextTick(() => {
+    inputField.value?.focus()
+  })
+}
+
+// Auto-focus input field when component mounts
+onMounted(() => {
+  nextTick(() => {
+    inputField.value?.focus()
+  })
+})
+
+// Auto-scroll when messages change
+watch(messages, () => {
+  scrollToBottom()
+}, { deep: true })
+
+// Auto-scroll when loading state changes
+watch(isLoading, () => {
+  scrollToBottom()
+})
 </script>

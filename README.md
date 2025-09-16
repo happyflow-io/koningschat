@@ -1,6 +1,6 @@
 # Koningschat
 
-RAG-based chatbot widget for Koningsspelen website content.
+RAG-based chatbot with fullscreen overlay for Koningsspelen website integration.
 
 ## Quick Start
 
@@ -12,7 +12,7 @@ bun run install:all
 bun run dev
 ```
 
-Open http://localhost:3000 to see the chat widget demo.
+Open http://localhost:3000 to see the fullscreen chat overlay demo.
 
 ## Development Scripts
 
@@ -76,16 +76,20 @@ NODE_ENV=development
 ## Current Status
 
 ✅ **Working Features:**
-- Vue 3 ChatWidget component with Dutch UI
+- Vue 3 fullscreen chat overlay with Dutch UI
+- Toggle functionality between chat and website
 - Hono API with OpenAI GPT-4 integration
 - PostgreSQL database with pgvector ready
 - Real-time chat with Dutch AI responses
+- Auto-scroll and auto-focus for better UX
+- Proper message alignment (user right, bot left)
+- State persistence with localStorage
 - Health monitoring and error handling
 
 🔄 **Next Steps:**
-- Content scraping from Koningsspelen website
-- Vector embeddings generation
-- RAG (Retrieval Augmented Generation) implementation
+- External website integration script
+- Performance optimization
+- Advanced RAG improvements
 
 ## Project Structure
 

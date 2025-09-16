@@ -82,7 +82,7 @@
 - [ ] Performance testing
 - [ ] Quality benchmarking with demo questions
 
-## Phase 3: Frontend Widget (Mostly Complete)
+## Phase 3: Frontend Widget (Updated Requirements)
 
 ### 7. Vue 3 Widget Setup
 - ✅ Frontend package.json setup
@@ -91,32 +91,46 @@
 - ✅ useChat.ts composable implemented
 - ✅ TailwindCSS styling applied
 
-### 8. Widget Features
+### 8. Widget Features (Updated UX)
 - ✅ Chat interface with Dutch labels
 - ✅ Message history display
 - ✅ Typing indicators (loading animation)
 - ✅ Loading states with Dutch text
 - ✅ Error handling with Dutch messages
+- ✅ **NEW: Fullscreen overlay chat interface**
+- ✅ **NEW: Toggle button for overlay/website view**
+- ✅ **NEW: State management for overlay visibility**
+- ✅ **NEW: Full-height chat area utilization**
+- ✅ **NEW: Auto-scroll on user message and bot response**
+- ✅ **NEW: Proper message alignment (user right, bot left)**
+- ✅ **NEW: Different background colors for user vs bot messages**
+- ✅ **NEW: Auto-focus input field for immediate typing**
 
-### 9. Widget Integration
+### 9. Widget Integration (Revised Approach)
 - ✅ Demo page created for testing
-- [ ] Create widget initialization script for external websites
-- [ ] Test widget on simple HTML page (external integration)
-- [ ] Verify API communication
+- ✅ **UPDATED: Create fullscreen overlay integration script**
+- ✅ **UPDATED: Implement toggle functionality (chat ↔ website)**
+- ✅ **UPDATED: First-visit detection (show chat by default)**
+- ✅ **UPDATED: State persistence with localStorage**
+- [ ] **NEW: Create external website integration script**
+- [ ] **NEW: Test integration on external HTML page**
 - ✅ Responsive design implemented
 
-## Phase 4: Integration & Testing
+## Phase 4: Integration & Testing (Updated)
 
 ### 10. End-to-End Testing
-- [ ] Test complete flow: question → API → response → widget
-- [ ] Verify Dutch conversation quality
-- [ ] Test with various Koningsspelen questions
+- ✅ Test complete flow: question → API → response → widget
+- ✅ Verify Dutch conversation quality
+- ✅ Test with various Koningsspelen questions
+- ✅ **NEW: Test fullscreen overlay toggle functionality**
+- ✅ **NEW: Test auto-scroll and auto-focus features**
 - [ ] Performance optimization
 
 ### 11. Documentation
 - [ ] API documentation
-- [ ] Widget integration guide for external websites
-- [ ] Usage examples
+- ✅ **UPDATED: Fullscreen overlay integration guide**
+- ✅ **UPDATED: Demo setup documentation**
+- [ ] Usage examples for external websites
 
 ### 12. Deployment
 - [ ] Frontend deployment (AWS)
@@ -145,20 +159,23 @@
 
 1. **RAG Quality Improvements** - Optimize chunking, search, and response quality
 2. **Demo Preparation** - Frontend polish and test scenarios
-3. **Widget Integration Script** - For external website embedding
+3. **External Integration Script** - For embedding on external websites
 4. **Performance optimization** - Optimize vector search and response times
 
 ## Demo Readiness Checklist
 
-### Frontend Polish (30 min)
-- [ ] Show sources in chat interface
-- [ ] Improve styling for demo presentation
-- [ ] Better loading states
+### Frontend Polish (COMPLETED ✅)
+- ✅ Show sources in chat interface
+- ✅ Improve styling for demo presentation
+- ✅ Better loading states
+- ✅ **NEW: Fullscreen overlay implementation**
+- ✅ **NEW: Proper message alignment and colors**
+- ✅ **NEW: Auto-scroll and auto-focus functionality**
 
 ### Demo Setup (15 min)
-- [ ] Simple HTML page for external widget demo
-- [ ] Demo question list preparation
-- [ ] Test scenarios documentation
+- ✅ **UPDATED: Fullscreen overlay demo page**
+- ✅ Demo question list preparation
+- ✅ Test scenarios documentation
 
 ### Quality Assurance
 - [ ] Test with demo questions:
