@@ -105,6 +105,7 @@
 - ✅ **NEW: Proper message alignment (user right, bot left)**
 - ✅ **NEW: Different background colors for user vs bot messages**
 - ✅ **NEW: Auto-focus input field for immediate typing**
+- ✅ **NEW: Streaming response (typewriter effect) for bot messages**
 
 ### 9. Widget Integration (Revised Approach)
 - ✅ Demo page created for testing

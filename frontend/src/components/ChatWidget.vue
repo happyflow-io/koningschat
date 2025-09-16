@@ -115,7 +115,7 @@ const sendMessage = async (text?: string) => {
   await sendChatMessage()
   scrollToBottom()
   
-  // Focus input field after sending
+  // Focus input field immediately after sending
   nextTick(() => {
     inputField.value?.focus()
   })
@@ -128,13 +128,13 @@ onMounted(() => {
   })
 })
 
-// Auto-scroll when messages change
+// Auto-scroll when messages change (including during streaming)
 watch(messages, () => {
-  scrollToBottom()
-}, { deep: true })
+  nextTick(() => scrollToBottom())
+}, { deep: true, flush: 'post' })
 
 // Auto-scroll when loading state changes
 watch(isLoading, () => {
-  scrollToBottom()
+  nextTick(() => scrollToBottom())
 })
 </script>
