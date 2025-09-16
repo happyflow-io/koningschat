@@ -114,6 +114,8 @@
 - ✅ **UPDATED: Implement toggle functionality (chat ↔ website)**
 - ✅ **UPDATED: First-visit detection (show chat by default)**
 - ✅ **UPDATED: State persistence with localStorage**
+- ✅ **NEW: Multi-page website for overlay testing**
+- ✅ **NEW: Vue Router integration with overlay state**
 - [ ] **NEW: Create external website integration script**
 - [ ] **NEW: Test integration on external HTML page**
 - ✅ Responsive design implemented
@@ -175,7 +177,8 @@
 - ✅ **NEW: Auto-scroll and auto-focus functionality**
 
 ### Demo Setup (15 min)
-- ✅ **UPDATED: Fullscreen overlay demo page**
+- ✅ **UPDATED: Multi-page demo website (Home, Inschrijven, Activiteiten, Contact)**
+- ✅ **UPDATED: Top navigation with active states**
 - ✅ Demo question list preparation
 - ✅ Test scenarios documentation
 
