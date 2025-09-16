@@ -21,7 +21,7 @@ export class OpenAIService {
     }
   }
 
-  async generateChatResponse(question: string, context: string = ''): Promise<string> {
+  async generateChatResponseStream(question: string, context: string = ''): Promise<AsyncIterable<string>> {
     try {
       const systemPrompt = `Je bent een behulpzame assistent voor de Koningsspelen website. 
 Je beantwoordt alleen vragen over de Koningsspelen in het Nederlands.
@@ -41,7 +41,7 @@ Vraag: ${question}
 Beantwoord de vraag op basis van de context informatie hierboven.`
         : `Vraag: ${question}`;
 
-      const response = await openai.chat.completions.create({
+      const stream = await openai.chat.completions.create({
         model: 'gpt-4',
         messages: [
           { role: 'system', content: systemPrompt },
@@ -49,11 +49,19 @@ Beantwoord de vraag op basis van de context informatie hierboven.`
         ],
         temperature: 0.3,
         max_tokens: 500,
+        stream: true,
       });
 
-      return response.choices[0].message.content || 'Sorry, ik kon geen antwoord genereren.';
+      return (async function* () {
+        for await (const chunk of stream) {
+          const content = chunk.choices[0]?.delta?.content;
+          if (content) {
+            yield content;
+          }
+        }
+      })();
     } catch (error) {
-      console.error('Error generating chat response:', error);
+      console.error('Error generating streaming chat response:', error);
       throw error;
     }
   }

@@ -16,33 +16,6 @@ export function useChat() {
   const currentMessage = ref('')
   const isLoading = ref(false)
 
-  const typewriterEffect = (message: Message, fullText: string, sources?: Array<{title: string, url: string}>) => {
-    return new Promise<void>((resolve) => {
-      let currentIndex = 0
-      message.isStreaming = true
-      
-      const typeNextChar = () => {
-        if (currentIndex < fullText.length) {
-          // Force reactivity by creating new string reference
-          message.text = fullText.substring(0, currentIndex + 1)
-          // Trigger reactivity manually
-          messages.value = [...messages.value]
-          currentIndex++
-          setTimeout(typeNextChar, 50)
-        } else {
-          message.isStreaming = false
-          message.sources = sources
-          // Final reactivity trigger
-          messages.value = [...messages.value]
-          resolve()
-        }
-      }
-      
-      // Start immediately
-      typeNextChar()
-    })
-  }
-
   const sendMessage = async () => {
     if (!currentMessage.value.trim() || isLoading.value) return
     
@@ -58,22 +31,7 @@ export function useChat() {
     isLoading.value = true
     
     try {
-      // Call Hono backend
-      const response = await fetch('http://localhost:3001/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMessage })
-      })
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      
-      const data = await response.json()
-      
-      // Stop loading and create bot message for streaming
-      isLoading.value = false
-      
+      // Create bot message for streaming
       const botMessage: Message = {
         id: Date.now() + 1,
         sender: 'Bot',
@@ -82,9 +40,61 @@ export function useChat() {
       }
       
       messages.value.push(botMessage)
+      isLoading.value = false
       
-      // Start typewriter effect
-      await typewriterEffect(botMessage, data.response, data.sources)
+      // Start fetch streaming
+      const response = await fetch('http://localhost:3001/api/chat/stream', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: userMessage })
+      })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
+      const reader = response.body?.getReader()
+      const decoder = new TextDecoder()
+      
+      if (!reader) {
+        throw new Error('No response body')
+      }
+      
+      while (true) {
+        const { done, value } = await reader.read()
+        
+        if (done) break
+        
+        const chunk = decoder.decode(value)
+        const lines = chunk.split('\n')
+        
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.slice(6))
+              
+              if (data.type === 'chunk') {
+                botMessage.text += data.content
+                // Force reactivity
+                messages.value = [...messages.value]
+              } else if (data.type === 'sources') {
+                botMessage.sources = data.sources
+              } else if (data.type === 'end') {
+                botMessage.isStreaming = false
+                return
+              } else if (data.type === 'error') {
+                botMessage.text = data.error
+                botMessage.isStreaming = false
+                return
+              }
+            } catch (e) {
+              // Skip invalid JSON
+            }
+          }
+        }
+      }
       
     } catch (error) {
       console.error('Chat error:', error)
@@ -93,12 +103,10 @@ export function useChat() {
       const errorMessage: Message = {
         id: Date.now() + 1,
         sender: 'Bot',
-        text: '',
-        isStreaming: true
+        text: 'Sorry, er ging iets mis met de verbinding. Probeer het opnieuw.'
       }
       
       messages.value.push(errorMessage)
-      await typewriterEffect(errorMessage, 'Sorry, er ging iets mis met de verbinding. Probeer het opnieuw.')
     }
   }
 

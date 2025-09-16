@@ -106,6 +106,7 @@
 - ✅ **NEW: Different background colors for user vs bot messages**
 - ✅ **NEW: Auto-focus input field for immediate typing**
 - ✅ **NEW: Streaming response (typewriter effect) for bot messages**
+- [ ] **NEW: Fine-tune streaming speed with typewriter delay (per chunk vs per character)**
 
 ### 9. Widget Integration (Revised Approach)
 - ✅ Demo page created for testing
