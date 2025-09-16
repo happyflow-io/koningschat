@@ -1,9 +1,8 @@
 <template>
   <div class="bg-white rounded-lg shadow-lg overflow-hidden h-full relative">
     <!-- Header -->
-    <div class="bg-orange-500 text-white p-4">
-      <h3 class="font-semibold text-lg">Koningsspelen Assistent</h3>
-      <p class="text-orange-100 text-sm">Stel je vraag over de Koningsspelen</p>
+    <div class="bg-orange-500 text-white p-4 text-center">
+      <h3 class="font-bold text-lg">King-GPT</h3>
     </div>
 
     <!-- Messages - With bottom padding for input -->

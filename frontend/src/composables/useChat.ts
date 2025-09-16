@@ -9,12 +9,55 @@ interface Message {
 }
 
 export function useChat() {
-  const messages = ref<Message[]>([
-    { id: 1, sender: 'Bot', text: 'Hallo! Ik kan vragen beantwoorden over de Koningsspelen.' }
-  ])
+  const messages = ref<Message[]>([])
   
   const currentMessage = ref('')
   const isLoading = ref(false)
+
+  // Typewriter effect for welcome messages
+  const typeWelcomeMessage = (text: string, delay: number = 0) => {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        const message: Message = {
+          id: Date.now() + Math.random(),
+          sender: 'Bot',
+          text: '',
+          isStreaming: true
+        }
+        
+        messages.value.push(message)
+        
+        let currentIndex = 0
+        const typeNextChar = () => {
+          if (currentIndex < text.length) {
+            message.text = text.substring(0, currentIndex + 1)
+            messages.value = [...messages.value]
+            currentIndex++
+            
+            // Random typing speed between 1-60ms
+            const randomDelay = Math.random() * 59 + 1
+            setTimeout(typeNextChar, randomDelay)
+          } else {
+            message.isStreaming = false
+            messages.value = [...messages.value]
+            resolve()
+          }
+        }
+        
+        typeNextChar()
+      }, delay)
+    })
+  }
+
+  // Initialize welcome messages with typewriter effect
+  const initializeWelcomeMessages = async () => {
+    await typeWelcomeMessage('Hoi, welkom bij de Koningsspelen!', 100)
+    await typeWelcomeMessage('Voor de gewone website kun je rechtsonder klikken, maar je kunt je vragen over de koningsspelen ook hier stellen.', 100)
+    await typeWelcomeMessage('Waar kan ik je mee helpen?', 100)
+  }
+
+  // Start welcome messages on component mount
+  initializeWelcomeMessages()
 
   const sendMessage = async () => {
     if (!currentMessage.value.trim() || isLoading.value) return
