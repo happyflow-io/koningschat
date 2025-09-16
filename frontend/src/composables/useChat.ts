@@ -34,8 +34,8 @@ export function useChat() {
             messages.value = [...messages.value]
             currentIndex++
             
-            // Random typing speed between 1-60ms
-            const randomDelay = Math.random() * 59 + 1
+            // Random typing speed between 1-20ms
+            const randomDelay = Math.random() * 19 + 1
             setTimeout(typeNextChar, randomDelay)
           } else {
             message.isStreaming = false

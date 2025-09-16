@@ -33,7 +33,7 @@
         <!-- Bot Message - Links, grijze achtergrond -->
         <div v-if="message.sender === 'Bot'" class="flex justify-start">
           <div class="bg-gray-100 text-gray-800 p-3 rounded-lg max-w-xs">
-            <p v-html="formatResponseWithLink(message.text, message.sources)"></p>
+            <p>{{ message.text }}</p>
           </div>
         </div>
       </div>
@@ -89,14 +89,6 @@ const suggestions = [
   'Wat is het thema dit jaar?',
   'Hoe werkt het Koningsontbijt?'
 ]
-
-const formatResponseWithLink = (text: string, sources?: Array<{title: string, url: string}>) => {
-  if (!sources || sources.length === 0) return text
-  
-  // Add link at the end of the response
-  const mainSource = sources[0]
-  return `${text} <a href="${mainSource.url}" target="_blank" class="text-orange-600 hover:text-orange-800 underline">→ Meer info</a>`
-}
 
 const scrollToBottom = () => {
   nextTick(() => {
