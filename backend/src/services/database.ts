@@ -88,6 +88,23 @@ export class DatabaseService {
     `;
   }
 
+  async getAllEmbeddings(limit: number = 50): Promise<any[]> {
+    const result = await sql`
+      SELECT 
+        e.id,
+        e.chunk_text,
+        e.chunk_index,
+        c.title,
+        c.url,
+        LENGTH(e.chunk_text) as chunk_length
+      FROM embeddings e
+      JOIN content c ON e.content_id = c.id
+      ORDER BY c.id, e.chunk_index
+      LIMIT ${limit}
+    `;
+    return result;
+  }
+
   async close(): Promise<void> {
     await sql.end();
   }
