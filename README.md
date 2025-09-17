@@ -93,7 +93,8 @@ NODE_ENV=development
 - Hono API with OpenAI GPT-4 integration
 - PostgreSQL database with pgvector ready
 - Real-time streaming responses with typewriter effect
-- RAG-based context retrieval from Dutch content
+- RAG-based context retrieval from Dutch content (21 pages, 47 embeddings)
+- Accurate Dutch responses using Koningsspelen website content
 - Auto-scroll and auto-focus for better UX
 - Proper message alignment (user right, bot left)
 - State persistence with localStorage

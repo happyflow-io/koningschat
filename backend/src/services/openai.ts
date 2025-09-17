@@ -21,6 +21,31 @@ export class OpenAIService {
     }
   }
 
+  async generateChatResponse(question: string, context: string = ''): Promise<string> {
+    try {
+      const systemPrompt = `Je bent een behulpzame assistent voor de Koningsspelen website. 
+Je beantwoordt alleen vragen over de Koningsspelen in het Nederlands.
+Gebruik de gegeven context om accurate antwoorden te geven.
+
+Context: ${context}`;
+
+      const response = await openai.chat.completions.create({
+        model: 'gpt-4',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: question }
+        ],
+        max_tokens: 500,
+        temperature: 0.7,
+      });
+
+      return response.choices[0].message.content || 'Sorry, ik kon geen antwoord genereren.';
+    } catch (error) {
+      console.error('Error generating chat response:', error);
+      throw error;
+    }
+  }
+
   async generateChatResponseStream(question: string, context: string = ''): Promise<AsyncIterable<string>> {
     try {
       const systemPrompt = `Je bent een behulpzame assistent voor de Koningsspelen website. 
