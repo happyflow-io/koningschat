@@ -4,45 +4,85 @@
 
 Deploy Koningschat POC to Render with full RAG functionality including pgvector support.
 
-**Estimated Time:** 10 minutes (automated) or 35-40 minutes (manual)  
+**Estimated Time:** 15-20 minutes (manual dashboard) or 10 minutes (CLI-assisted)  
 **Cost:** ~$0.05 OpenAI API usage + $0-7/month hosting
 
-## Quick Start (Automated CLI)
+## Quick Start (CLI-Assisted - Recommended)
 
 ### Prerequisites
 ```bash
-# 1. Install deployment tools
-./scripts/setup-deployment.sh
+# 1. Ensure .env file has OpenAI API key
+cat .env | grep OPENAI_API_KEY
 
-# 2. Set OpenAI API key
-export OPENAI_API_KEY=sk-your-key-here
-
-# 3. Deploy everything
-./scripts/deploy-render.sh
+# 2. Run deployment assistant
+./scripts/deploy-render-cli.sh
 ```
 
-**That's it!** The script will:
-- ✅ Create Render services (database, backend, frontend)
-- ✅ Configure environment variables
-- ✅ Deploy Docker containers
-- ✅ Setup PostgreSQL + pgvector
-- ✅ Run database schema
-- ✅ Scrape content (21 pages)
-- ✅ Generate embeddings (47 vectors)
-- ✅ Verify deployment with tests
-- ✅ Provide live URLs
+**The script will:**
+- ✅ Load OpenAI API key from .env file
+- ✅ Provide step-by-step Render dashboard instructions
+- ✅ Pre-fill all configuration values
+- ✅ Include exact environment variables to copy-paste
 
-## Manual Deployment (Alternative)
+**Note:** The script provides manual instructions because the system `render` CLI is not the official Render.com CLI. The official Render CLI is not available via standard package managers.
 
-If you prefer manual control or the CLI fails, follow these steps:
+## CLI-Assisted Deployment Process
+
+1. **Run the deployment script:**
+   ```bash
+   ./scripts/deploy-render-cli.sh
+   ```
+
+2. **Follow the generated instructions** which include:
+   - Pre-configured service names and settings
+   - Your GitHub repository URL
+   - OpenAI API key loaded from .env
+   - Exact environment variable configurations
+   - Database setup commands
+   - Data population scripts
+
+3. **Manual steps in Render dashboard:**
+   - Create PostgreSQL database
+   - Create backend web service
+   - Create frontend static site
+   - Configure environment variables (copy-paste ready)
+   - Setup database schema and extensions
+   - Populate data via backend shell
+
+## Alternative: Manual Deployment
+
+If you prefer full manual control, follow these steps:
+
+## CLI Tools Status
+
+### Official Render CLI
+- **Status:** ✅ Available via `brew install render`
+- **Documentation:** https://render.com/docs/cli
+- **Commands:** `render login`, `render services`, `render deploys`, etc.
+- **Our usage:** CLI-assisted deployment with interactive commands
+
+### Our Solution
+- **CLI-assisted deployment:** `./scripts/deploy-render-cli.sh`
+- **Benefits:** 
+  - Uses official Render CLI for authentication and service management
+  - Loads configuration from .env file
+  - Combines CLI automation with manual configuration steps
+  - Provides exact instructions with pre-filled values
+  - Handles complex deployment orchestration
+
+### Why CLI-Assisted vs Fully Automated
+- **Service creation:** Render CLI supports service management but complex initial setup is easier via dashboard
+- **Configuration:** Multiple environment variables and service dependencies
+- **Database setup:** pgvector extension and schema setup requires manual steps
+- **Best approach:** CLI for auth/management + dashboard for initial setup
 
 ## Prerequisites
 
 - [x] GitHub repository with current code
 - [x] Docker containers working locally
-- [x] OpenAI API key available
+- [x] OpenAI API key in .env file
 - [ ] Render account created
-- [ ] Environment variables documented
+- [x] CLI deployment script ready
 
 ## Deployment Architecture
 

@@ -1,43 +1,54 @@
 # Deployment Scripts
 
-Automated deployment scripts for Koningschat POC.
+CLI-assisted deployment scripts for Koningschat POC.
 
 ## Quick Deployment
 
 ```bash
-# 1. Setup prerequisites
-./scripts/setup-deployment.sh
+# 1. Ensure .env file has OpenAI API key
+cat .env | grep OPENAI_API_KEY
 
-# 2. Set your OpenAI API key
-export OPENAI_API_KEY=sk-your-actual-key-here
-
-# 3. Deploy to Render
-./scripts/deploy-render.sh
+# 2. Run CLI-assisted deployment
+./scripts/deploy-render-cli.sh
 ```
 
 ## Scripts Overview
 
-### `setup-deployment.sh`
-Installs required tools:
-- Render CLI
-- jq (JSON processor)
-- Checks OpenAI API key
+### `deploy-render-cli.sh` (Recommended)
+CLI-assisted deployment with pre-configured instructions:
+- Loads OpenAI API key from .env file
+- Generates step-by-step Render dashboard instructions
+- Provides copy-paste ready environment variables
+- Includes your GitHub repository URL
+- No manual configuration needed
 
-### `deploy-render.sh`
-Full automated deployment:
-- Creates Render services
-- Deploys containers
-- Sets up database + pgvector
-- Scrapes content and generates embeddings
-- Runs verification tests
-- Provides live URLs
+### `deploy-guide.sh` (Alternative)
+Interactive deployment guide:
+- Requires manual API key export
+- Basic deployment instructions
+- Less automation than CLI-assisted version
+
+### `setup-deployment.sh` (Legacy)
+Prerequisites installer (not needed for current approach):
+- Attempts to install Render CLI (not available)
+- Basic environment checks
+
+## CLI Status
+
+**Official Render CLI:** Not available via standard package managers
+- The `render` command from `brew install render` is a template renderer, not Render.com CLI
+- Render.com doesn't provide an official CLI via npm or brew
+
+**Our Solution:** CLI-assisted manual deployment
+- Best of both worlds: automation + reliability
+- Pre-configured instructions with your specific values
+- Copy-paste ready environment variables
 
 ## Requirements
 
-- Node.js (for Render CLI)
-- OpenAI API key
+- .env file with OPENAI_API_KEY
 - Git repository pushed to GitHub
-- Internet connection
+- Internet connection for Render dashboard access
 
 ## What Gets Deployed
 
@@ -56,22 +67,22 @@ After successful deployment:
 
 ## Troubleshooting
 
-**Render CLI not found:**
+**OpenAI API key not found:**
 ```bash
-npm install -g @render/cli
+# Check .env file
+cat .env | grep OPENAI_API_KEY
+
+# Should show: OPENAI_API_KEY=sk-proj-...
 ```
 
-**Not logged in to Render:**
+**Script doesn't run:**
 ```bash
-render auth login
-```
-
-**OpenAI API key missing:**
-```bash
-export OPENAI_API_KEY=sk-your-key-here
+# Make executable
+chmod +x scripts/deploy-render-cli.sh
 ```
 
 **Deployment failed:**
 - Check Render dashboard for service logs
 - Verify GitHub repository is accessible
 - Ensure Docker containers build locally
+- Confirm pgvector extension is enabled in database
