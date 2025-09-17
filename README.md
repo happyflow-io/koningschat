@@ -2,7 +2,26 @@
 
 RAG-based chatbot with fullscreen overlay for Koningsspelen website integration.
 
-## Quick Start
+## Quick Start (Docker - Recommended)
+
+```bash
+# Clone and setup
+git clone <repo>
+cd koningschat
+cp .env.example .env
+
+# Add your OpenAI API key to .env
+# OPENAI_API_KEY=sk-your-actual-key-here
+
+# Start everything with Docker
+docker compose up
+```
+
+Open http://localhost:3000 to see the fullscreen chat overlay demo.
+
+See [DOCKER.md](DOCKER.md) for detailed Docker instructions.
+
+## Alternative: Local Development
 
 ```bash
 # Install all dependencies
@@ -12,22 +31,13 @@ bun run install:all
 bun run dev
 ```
 
-Open http://localhost:3000 to see the fullscreen chat overlay demo.
-
-## Development Scripts
-
-```bash
-bun run dev              # Start both servers (robust with port cleanup)
-bun run dev:simple       # Start both servers (simple concurrently)
-bun run dev:backend      # Start only backend (port 3001)
-bun run dev:frontend     # Start only frontend (port 3000)
-bun run health           # Check API health status
-bun run scrape           # Run website content scraper
-bun run build            # Build for production
-```
-
 ## Prerequisites
 
+### Docker Setup (Recommended)
+- **Docker Desktop** - Handles all dependencies automatically
+- **OpenAI API Key** - For AI responses
+
+### Local Setup (Alternative)
 - **Bun** - JavaScript runtime and package manager
 - **PostgreSQL** - Database with pgvector extension
 - **OpenAI API Key** - For AI responses
@@ -77,16 +87,21 @@ NODE_ENV=development
 
 ✅ **Working Features:**
 - Vue 3 fullscreen chat overlay with Dutch UI
+- Multi-page website (Home, Inschrijven, Activiteiten, Contact)
+- Top navigation with active states
 - Toggle functionality between chat and website
 - Hono API with OpenAI GPT-4 integration
 - PostgreSQL database with pgvector ready
-- Real-time chat with Dutch AI responses
+- Real-time streaming responses with typewriter effect
+- RAG-based context retrieval from Dutch content
 - Auto-scroll and auto-focus for better UX
 - Proper message alignment (user right, bot left)
 - State persistence with localStorage
+- Complete Docker containerization
 - Health monitoring and error handling
 
 🔄 **Next Steps:**
+- Cloud hosting deployment
 - External website integration script
 - Performance optimization
 - Advanced RAG improvements

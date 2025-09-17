@@ -179,8 +179,19 @@
 ### Demo Setup (15 min)
 - ✅ **UPDATED: Multi-page demo website (Home, Inschrijven, Activiteiten, Contact)**
 - ✅ **UPDATED: Top navigation with active states**
+- ✅ **UPDATED: Docker-based demo environment**
 - ✅ Demo question list preparation
 - ✅ Test scenarios documentation
+
+### 12. Docker Setup (NEW - COMPLETED)
+- ✅ **NEW: Docker Compose configuration for all services**
+- ✅ **NEW: PostgreSQL + pgvector container setup**
+- ✅ **NEW: Backend container with Bun runtime**
+- ✅ **NEW: Frontend container with Node.js 20 + Vite**
+- ✅ **NEW: Environment variable management (.env.example)**
+- ✅ **NEW: Health checks and service dependencies**
+- ✅ **NEW: Hot reload for development**
+- ✅ **NEW: Docker documentation (DOCKER.md)**
 
 ### Quality Assurance
 - [ ] Test with demo questions:
