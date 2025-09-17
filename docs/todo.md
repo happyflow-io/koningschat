@@ -193,6 +193,16 @@
 - ✅ **NEW: Hot reload for development**
 - ✅ **NEW: Docker documentation (DOCKER.md)**
 
+### 13. Security & Production Hardening (NEW - HIGH PRIORITY)
+- [ ] **NEW: Rate limiting** - 20 requests/15min per IP to prevent API abuse
+- [ ] **NEW: CORS restrictions** - Only allow specific domains to call API
+- [ ] **NEW: Request validation** - Max message length (500 chars), spam detection
+- [ ] **NEW: OpenAI budget limits** - Hard cap at $25-50/month with alerts
+- [ ] **NEW: Environment security** - AWS Parameter Store for API keys
+- [ ] **NEW: Request logging** - Track usage patterns and potential abuse
+- [ ] **NEW: Authentication system** - Optional user identification
+- [ ] **NEW: Network security** - VPC, Security Groups, WAF for AWS deployment
+
 ### Quality Assurance
 - [ ] Test with demo questions:
   - "Wanneer zijn de Koningsspelen?" → "17 april 2026"
